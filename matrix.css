@@ -1,0 +1,74 @@
+body{
+	margin:0;
+
+
+}
+#math{
+	width: 840px;
+	height: 200px;
+	margin: 25px auto;
+	font-family: monospace;
+}
+.matrix, .equals{
+	position: relative;
+	height:180px;
+	margin:20px;
+	margin-right:0;
+	float: left;
+}
+.matrix{
+	padding: 0 10px;
+}
+.matrix > div{
+	float:left;
+	width:50px; height:50px;
+	background: #eee;
+	margin:5px;
+	position: relative;
+
+	font-size: 20px;
+	line-height: 50px;
+	text-align: center;
+}
+.matrix[expanded] > div{
+	position: relative;
+	margin:5px 10px;
+	font-size: 15px;
+}
+.matrix[expanded] > div[plus]:before{
+	content: '+';
+	position: absolute;
+	font-size: 20px;
+	text-align: center;
+	width:0px; height:0px;
+	left: -16px;
+}
+.matrix:before, .matrix:after{
+	content:'';
+	position:absolute;
+	width:20px; height:190px;
+	border: 5px solid #000;
+	top:-10px;
+}
+.matrix:before{
+	left:0;
+	border-right: none;
+}
+.matrix:after{
+	right:0;
+	border-left: none;
+}
+.equals{
+	width:60px;
+}
+.equals:after{
+	content: '';
+	width:40px;
+	height:20px;
+	position: absolute;
+	top:0; bottom:0; left:0; right:0;
+	margin:auto;
+	border: 5px solid #000;
+	border-left: none;
+	border-right: none;
+}
