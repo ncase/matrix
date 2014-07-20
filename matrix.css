@@ -3,37 +3,57 @@ body{
 
 
 }
+
+/*** GRAPHICAL TOY ***/
+#graphics{
+	background: #ddd;
+	width:100%;
+	height:400px;
+}
+
+/*** MATRIX MATH ***/
 #math{
-	width: 840px;
-	height: 200px;
+	width: 870px;
+	height: 220px;
 	margin: 25px auto;
 	font-family: monospace;
 }
 .matrix, .equals{
 	position: relative;
 	height:180px;
-	margin:20px;
+	margin:10px;
 	margin-right:0;
 	float: left;
 }
 .matrix{
 	padding: 0 10px;
 }
-.matrix > div{
+.matrix > input, .matrix > div{
 	float:left;
 	width:50px; height:50px;
 	background: #eee;
 	margin:5px;
 	position: relative;
 
-	font-size: 20px;
+	font-size: 15px;
 	line-height: 50px;
 	text-align: center;
 }
+.matrix > input{
+	border: 2px solid #bbb;
+	display: block;
+	width:50px; height:50px;
+	font-size: 15px;
+	font-family: monospace;
+}
+.matrix[expanded]{
+	width:300px;
+}
 .matrix[expanded] > div{
 	position: relative;
+	width:80px;
 	margin:5px 10px;
-	font-size: 15px;
+	font-size: 12px;
 }
 .matrix[expanded] > div[plus]:before{
 	content: '+';
