@@ -77,23 +77,49 @@ var bullets = [];
 for(var i=0;i<12;i++){
 	var angle = Math.PI*2*(i/12);
 	bullets.push({
-		x: Math.cos(angle)*3,
-		y: Math.sin(angle)*3
+		x: Math.cos(angle)*20,
+		y: Math.sin(angle)*20
 	});
 	originalBullets.push({
-		x: Math.cos(angle)*3,
-		y: Math.sin(angle)*3
+		x: Math.cos(angle)*2,
+		y: Math.sin(angle)*2
 	});
 }
 
 var tempCanvas = document.createElement("canvas");
 tempCanvas.width = canvas.width;
 tempCanvas.height = canvas.height;
+var tempContext = tempCanvas.getContext('2d');
 
 function draw(){
+
+	// TEMP CANVAS saved
+	tempContext.clearRect(0,0,canvas.width,canvas.height);	
+	tempContext.drawImage(canvas,0,0);
+
+	// Clear canvas
 	ctx.clearRect(0,0,canvas.width,canvas.height);
 	ctx.save();
+
+	// Draw trail
+	/*ctx.globalAlpha = 0.7;
+	ctx.drawImage(tempCanvas,0,0);
+	ctx.globalAlpha = 1.0;*/
+
+	// Center
 	ctx.translate(canvas.width/2,canvas.height/2);
+
+	// Draw axes
+	ctx.lineWidth = 1;
+	ctx.beginPath();
+	ctx.strokeStyle = '#bbb';
+	ctx.moveTo(-canvas.width/2,0);
+	ctx.lineTo(canvas.width/2,0);
+	ctx.moveTo(0,-canvas.height/2);
+	ctx.lineTo(0,canvas.height/2);
+	ctx.stroke();
+
+	// Draw bullets
 	for(var i=0;i<bullets.length;i++){
 		
 		var bullet = bullets[i];
@@ -102,6 +128,22 @@ function draw(){
 		bullet.x = bullet.x*0.9 + newBullet.x*0.1;
 		bullet.y = bullet.y*0.9 + newBullet.y*0.1;
 
+		// Draw connecting line
+		ctx.beginPath();
+		ctx.lineWidth = 1;
+		ctx.strokeStyle = '#888';
+		ctx.moveTo(originalBullet.x*50, originalBullet.y*50);
+		ctx.lineTo(bullet.x*50, bullet.y*50);
+		ctx.stroke();
+
+		// Draw where original was
+		ctx.beginPath();
+		ctx.arc(originalBullet.x*50, originalBullet.y*50, 5, 0, 2*Math.PI, false);
+		ctx.fillStyle = '#ddd';
+		ctx.fill();
+		ctx.stroke();
+
+		// Draw where bullet is
 		ctx.beginPath();
 		ctx.arc(bullet.x*50, bullet.y*50, 5, 0, 2*Math.PI, false);
 		ctx.fillStyle = '#000';
