@@ -8,12 +8,12 @@ function updateMatrixLeft(){
 		m.innerHTML = t.value;
 	}
 
-	transform.a = parseFloat(mtx_transforms[0].value);
-	transform.b = parseFloat(mtx_transforms[1].value);
-	transform.tx = parseFloat(mtx_transforms[2].value);
-	transform.c = parseFloat(mtx_transforms[3].value);
-	transform.d = parseFloat(mtx_transforms[4].value);
-	transform.ty = parseFloat(mtx_transforms[5].value);
+	transform.a = parseFloat(mtx_transforms[0].value) || 0;
+	transform.b = parseFloat(mtx_transforms[1].value) || 0;
+	transform.tx = parseFloat(mtx_transforms[2].value) || 0;
+	transform.c = parseFloat(mtx_transforms[3].value) || 0;
+	transform.d = parseFloat(mtx_transforms[4].value) || 0;
+	transform.ty = parseFloat(mtx_transforms[5].value) || 0;
 
 	draw();
 
@@ -48,6 +48,9 @@ function updateMatrixRight(){
 }
 
 function calculate(x,y){
+
+	x = x || 0;
+	y = y || 0;
 
 	var a = transform.a;
 	var b = transform.b;
@@ -119,14 +122,20 @@ function draw(){
 	ctx.lineTo(0,canvas.height/2);
 	ctx.stroke();
 
-	// Draw bullets
+	// Calculate bullets
 	for(var i=0;i<bullets.length;i++){
-		
 		var bullet = bullets[i];
 		var originalBullet = originalBullets[i];
 		var newBullet = calculate(originalBullet.x,originalBullet.y);
 		bullet.x = bullet.x*0.9 + newBullet.x*0.1;
 		bullet.y = bullet.y*0.9 + newBullet.y*0.1;
+	}
+
+	// Draw bullets original
+	for(var i=0;i<bullets.length;i++){
+
+		var bullet = bullets[i];
+		var originalBullet = originalBullets[i];
 
 		// Draw connecting line
 		ctx.beginPath();
@@ -142,6 +151,14 @@ function draw(){
 		ctx.fillStyle = '#ddd';
 		ctx.fill();
 		ctx.stroke();
+
+	}
+
+	// Draw bullets
+	for(var i=0;i<bullets.length;i++){
+
+		var bullet = bullets[i];
+		var originalBullet = originalBullets[i];
 
 		// Draw where bullet is
 		ctx.beginPath();
