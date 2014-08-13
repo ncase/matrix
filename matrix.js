@@ -23,6 +23,12 @@ function updateMatrixLeft(){
 
 }
 
+// Mouse
+var Mouse = {
+	x: window.innerWidth/2,
+	y: 400/2
+};
+
 // Make inputs scrubbable
 var scrubInput = null;
 var scrubPosition = {x:0, y:0};
@@ -39,6 +45,12 @@ function makeScrubbable(input){
 	}
 }
 window.onmousemove = function(e){
+
+	// Mouse
+	Mouse.x = e.clientX;
+	Mouse.y = e.clientY;
+
+	// Scrubbing
 	if(!scrubInput) return;
 	scrubInput.blur();
 	var deltaX = e.clientX - scrubPosition.x;
@@ -46,6 +58,7 @@ window.onmousemove = function(e){
 	var val = scrubStartValue + deltaX;
 	scrubInput.value = (Math.round(val*10)/10).toFixed(1);
 	updateMatrixLeft();
+
 }
 window.onmouseup = function(){
 	scrubInput = null;
@@ -72,10 +85,30 @@ function updateMatrixRight(){
 	if(mtx_inputs[0].innerHTML==="x"){
 		mtx_outputs[0].innerHTML = "x'";
 		mtx_outputs[1].innerHTML = "y'";
+
+		mtx_inputs[0].style.background = "";
+		mtx_inputs[1].style.background = "";
+		mtx_outputs[0].style.background = "";
+		mtx_outputs[1].style.background = "";
+		mtx_inputs[0].style.color = "";
+		mtx_inputs[1].style.color = "";
+		mtx_outputs[0].style.color = "";
+		mtx_outputs[1].style.color = "";
+
 	}else{
 		var result = calculate(parseFloat(mtx_inputs[0].innerHTML),parseFloat(mtx_inputs[1].innerHTML));
-		mtx_outputs[0].innerHTML = result.x;
-		mtx_outputs[1].innerHTML = result.y;
+		mtx_outputs[0].innerHTML = result.x.toFixed(1);
+		mtx_outputs[1].innerHTML = result.y.toFixed(1);
+
+		mtx_inputs[0].style.background = "#DD3838";
+		mtx_inputs[1].style.background = "#DD3838";
+		mtx_outputs[0].style.background = "#DD3838";
+		mtx_outputs[1].style.background = "#DD3838";
+		mtx_inputs[0].style.color = "#FFF";
+		mtx_inputs[1].style.color = "#FFF";
+		mtx_outputs[0].style.color = "#FFF";
+		mtx_outputs[1].style.color = "#FFF";
+
 	}
 
 }
@@ -216,17 +249,34 @@ function draw(){
 	}
 
 	// Draw bullets
+	var anyHovered = false;
 	for(var i=0;i<bullets.length;i++){
 
 		var bullet = bullets[i];
 		var originalBullet = originalBullets[i];
 
+		// IS IT HOVERED?
+		var dx = (Mouse.x-canvas.width/2) - (bullet.x*100);
+		var dy = (Mouse.y-canvas.height/2) - (-bullet.y*100);
+		var isHovered = (dx*dx+dy*dy<25);
+		if(isHovered){
+			anyHovered = true;
+			mtx_inputs[0].innerHTML = bullet.x.toFixed(1);
+			mtx_inputs[1].innerHTML = bullet.y.toFixed(1);
+			updateMatrixRight();
+		}
+
 		// Draw where bullet is
 		ctx.beginPath();
 		ctx.arc(bullet.x*100, -bullet.y*100, 5, 0, 2*Math.PI, false);
-		ctx.fillStyle = '#000';
+		ctx.fillStyle = isHovered ? '#dd3838' : '#000';
 		ctx.fill();
 
+	}
+	if(!anyHovered && mtx_inputs[0].innerHTML!="x"){
+		mtx_inputs[0].innerHTML = "x";
+		mtx_inputs[1].innerHTML = "y";
+		updateMatrixRight();
 	}
 	ctx.restore();
 }
