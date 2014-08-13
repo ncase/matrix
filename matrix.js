@@ -19,10 +19,39 @@ function updateMatrixLeft(){
 
 }
 
+// Make inputs scrubbable
+var scrubInput = null;
+var scrubPosition = {x:0, y:0};
+var scrubStartValue = 0;
+function makeScrubbable(input){
+	input.onmousedown = function(e){
+		scrubInput = e.target;
+		scrubPosition.x = e.clientX;
+		scrubPosition.y = e.clientY;
+		scrubStartValue = parseFloat(input.value);
+	}
+	input.onclick = function(e){
+		e.target.select();
+	}
+}
+window.onmousemove = function(e){
+	if(!scrubInput) return;
+	scrubInput.blur();
+	var deltaX = e.clientX - scrubPosition.x;
+	deltaX = Math.round(deltaX/10)*0.1; // 0.1 for every 10px
+	var val = scrubStartValue + deltaX;
+	scrubInput.value = Math.round(val*10)/10;
+	updateMatrixLeft();
+}
+window.onmouseup = function(){
+	scrubInput = null;
+}
+
 var mtx_transforms = document.querySelectorAll("#mtx_transform input");
 for(var i=0;i<mtx_transforms.length;i++){
 	var input = mtx_transforms[i];
 	input.onchange = updateMatrixLeft;
+	makeScrubbable(input);
 }
 
 var mtx_inputs = document.querySelectorAll("#mtx_input div");
@@ -80,12 +109,12 @@ var bullets = [];
 for(var i=0;i<12;i++){
 	var angle = Math.PI*2*(i/12);
 	bullets.push({
-		x: Math.cos(angle)*20,
-		y: Math.sin(angle)*20
+		x: Math.cos(angle)*10,
+		y: Math.sin(angle)*10
 	});
 	originalBullets.push({
-		x: Math.cos(angle)*2,
-		y: Math.sin(angle)*2
+		x: Math.cos(angle)*1,
+		y: Math.sin(angle)*1
 	});
 }
 
@@ -141,13 +170,13 @@ function draw(){
 		ctx.beginPath();
 		ctx.lineWidth = 1;
 		ctx.strokeStyle = '#888';
-		ctx.moveTo(originalBullet.x*50, originalBullet.y*50);
-		ctx.lineTo(bullet.x*50, bullet.y*50);
+		ctx.moveTo(originalBullet.x*100, -originalBullet.y*100);
+		ctx.lineTo(bullet.x*100, -bullet.y*100);
 		ctx.stroke();
 
 		// Draw where original was
 		ctx.beginPath();
-		ctx.arc(originalBullet.x*50, originalBullet.y*50, 5, 0, 2*Math.PI, false);
+		ctx.arc(originalBullet.x*100, -originalBullet.y*100, 5, 0, 2*Math.PI, false);
 		ctx.fillStyle = '#ddd';
 		ctx.fill();
 		ctx.stroke();
@@ -162,7 +191,7 @@ function draw(){
 
 		// Draw where bullet is
 		ctx.beginPath();
-		ctx.arc(bullet.x*50, bullet.y*50, 5, 0, 2*Math.PI, false);
+		ctx.arc(bullet.x*100, -bullet.y*100, 5, 0, 2*Math.PI, false);
 		ctx.fillStyle = '#000';
 		ctx.fill();
 
