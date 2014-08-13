@@ -1,3 +1,7 @@
+function $(selector){
+	return document.querySelectorAll(selector);
+}
+
 var transform = {};
 var mtx_expanded_left = document.querySelectorAll("#mtx_expanded span.left");
 function updateMatrixLeft(){
@@ -40,7 +44,7 @@ window.onmousemove = function(e){
 	var deltaX = e.clientX - scrubPosition.x;
 	deltaX = Math.round(deltaX/10)*0.1; // 0.1 for every 10px
 	var val = scrubStartValue + deltaX;
-	scrubInput.value = Math.round(val*10)/10;
+	scrubInput.value = (Math.round(val*10)/10).toFixed(1);
 	updateMatrixLeft();
 }
 window.onmouseup = function(){
@@ -93,6 +97,34 @@ function calculate(x,y){
 
 	return {x:x2, y:y2};
 }
+
+// Red Hover
+function multiplicationHover(multDOM,transDOM,inputDOM){
+	multDOM.onmouseover = function(){
+		transDOM.style.background = "#DD3838";
+		inputDOM.style.background = "#DD3838";
+		transDOM.style.color = "#FFF";
+		inputDOM.style.color = "#FFF";
+	};
+	multDOM.onmouseout = function(){
+		transDOM.style.background = "";
+		inputDOM.style.background = "";
+		transDOM.style.color = "";
+		inputDOM.style.color = "";
+	};
+}
+multiplicationHover($("#mtx_expanded > div:nth-child(1)")[0], $("#mtx_transform > input:nth-child(1)")[0], $("#mtx_input > div:nth-child(1)")[0]);
+multiplicationHover($("#mtx_expanded > div:nth-child(2)")[0], $("#mtx_transform > input:nth-child(2)")[0], $("#mtx_input > div:nth-child(2)")[0]);
+multiplicationHover($("#mtx_expanded > div:nth-child(3)")[0], $("#mtx_transform > input:nth-child(3)")[0], $("#mtx_input > div:nth-child(3)")[0]);
+
+multiplicationHover($("#mtx_expanded > div:nth-child(4)")[0], $("#mtx_transform > input:nth-child(4)")[0], $("#mtx_input > div:nth-child(1)")[0]);
+multiplicationHover($("#mtx_expanded > div:nth-child(5)")[0], $("#mtx_transform > input:nth-child(5)")[0], $("#mtx_input > div:nth-child(2)")[0]);
+multiplicationHover($("#mtx_expanded > div:nth-child(6)")[0], $("#mtx_transform > input:nth-child(6)")[0], $("#mtx_input > div:nth-child(3)")[0]);
+
+multiplicationHover($("#mtx_expanded > div:nth-child(7)")[0], $("#mtx_transform > div:nth-child(7)")[0], $("#mtx_input > div:nth-child(1)")[0]);
+multiplicationHover($("#mtx_expanded > div:nth-child(8)")[0], $("#mtx_transform > div:nth-child(8)")[0], $("#mtx_input > div:nth-child(2)")[0]);
+multiplicationHover($("#mtx_expanded > div:nth-child(9)")[0], $("#mtx_transform > div:nth-child(9)")[0], $("#mtx_input > div:nth-child(3)")[0]);
+
 
 ///////////////////////////////
 
