@@ -226,15 +226,30 @@ function draw(){
 	}
 
 	// Draw bullets original
+	var anyHovered = false;
 	for(var i=0;i<bullets.length;i++){
 
 		var bullet = bullets[i];
 		var originalBullet = originalBullets[i];
 
+		// IS IT HOVERED?
+		var dx = (Mouse.x-canvas.width/2) - (originalBullet.x*100);
+		var dy = (Mouse.y-canvas.height/2) - (-originalBullet.y*100);
+		var isHovered = (dx*dx+dy*dy<25);
+		dx = (Mouse.x-canvas.width/2) - (bullet.x*100);
+		dy = (Mouse.y-canvas.height/2) - (-bullet.y*100);
+		bullet.isHovered = isHovered || (dx*dx+dy*dy<25);
+		if(bullet.isHovered){
+			anyHovered = true;
+			mtx_inputs[0].innerHTML = originalBullet.x.toFixed(1);
+			mtx_inputs[1].innerHTML = originalBullet.y.toFixed(1);
+			updateMatrixRight();
+		}
+
 		// Draw connecting line
 		ctx.beginPath();
 		ctx.lineWidth = 1;
-		ctx.strokeStyle = '#888';
+		ctx.strokeStyle = bullet.isHovered ? "#EE3838" : '#888';
 		ctx.moveTo(originalBullet.x*100, -originalBullet.y*100);
 		ctx.lineTo(bullet.x*100, -bullet.y*100);
 		ctx.stroke();
@@ -249,27 +264,15 @@ function draw(){
 	}
 
 	// Draw bullets
-	var anyHovered = false;
 	for(var i=0;i<bullets.length;i++){
 
 		var bullet = bullets[i];
 		var originalBullet = originalBullets[i];
 
-		// IS IT HOVERED?
-		var dx = (Mouse.x-canvas.width/2) - (bullet.x*100);
-		var dy = (Mouse.y-canvas.height/2) - (-bullet.y*100);
-		var isHovered = (dx*dx+dy*dy<25);
-		if(isHovered){
-			anyHovered = true;
-			mtx_inputs[0].innerHTML = bullet.x.toFixed(1);
-			mtx_inputs[1].innerHTML = bullet.y.toFixed(1);
-			updateMatrixRight();
-		}
-
 		// Draw where bullet is
 		ctx.beginPath();
 		ctx.arc(bullet.x*100, -bullet.y*100, 5, 0, 2*Math.PI, false);
-		ctx.fillStyle = isHovered ? '#dd3838' : '#000';
+		ctx.fillStyle = bullet.isHovered ? '#dd3838' : '#000';
 		ctx.fill();
 
 	}
