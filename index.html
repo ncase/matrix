@@ -1,39 +1,196 @@
-<link rel="stylesheet" type="text/css" href="matrix.css">
+<!doctype>
+<html>
+<head>
 
-<div id="graphics">
-	<canvas id="bullets"></canvas>
-</div>
-<div id="math">
-	<div id="mtx_transform" class="matrix unselectable" style="width:180px">
-		<input value="1.0"/><input value="0.0"/><input value="0.0"/>
-		<input value="0.0"/><input value="1.0"/><input value="0.0"/>
-		<div>0</div><div>0</div><div>1</div>
-	</div>
-	<div id="mtx_input"  class="matrix unselectable" style="width:60px">
-		<div>x</div>
-		<div>y</div>
-		<div>1</div>
-	</div>
-	<div class="equals"></div>
-	<div id="mtx_expanded"  class="matrix unselectable" expanded>
-		<div><span class="left">1</span>*<span class="right">1</span></div>
-		<div plus><span class="left">1</span>*<span class="right">1</span></div>
-		<div plus><span class="left">1</span>*<span class="right">1</span></div>
-		
-		<div><span class="left">0</span>*<span class="right">0</span></div>
-		<div plus><span class="left">0</span>*<span class="right">0</span></div>
-		<div plus><span class="left">0</span>*<span class="right">0</span></div>
+	<!-- Place this data between the <head> tags of your website -->
+	<title>THE MAGNIFICENT 2D MATRIX</title>
+	<meta name="description" content="Behold the beast! Play with an interactive 2d matrix." />
+	<link rel="icon" type="image/png" href="favicon.png">
 
-		<div><span class="left">0</span>*<span class="right">x</span></div>
-		<div plus><span class="left">0</span>*<span class="right">y</span></div>
-		<div plus><span class="left">1</span>*<span class="right">1</span></div>
-	</div>
-	<div class="equals"></div>
-	<div id="mtx_output"  class="matrix" style="width:60px">
-		<div>x'</div>
-		<div>y'</div>
-		<div>1</div>
-	</div>
-</div>
+	<!-- Schema.org markup for Google+ -->
+	<meta itemprop="name" content="THE MAGNIFICENT 2D MATRIX">
+	<meta itemprop="description" content="Behold the beast! Play with an interactive 2d matrix.">
+	<meta itemprop="image" content="http://ncase.me/matrix/img/thumbnail.png">
 
-<script src="matrix.js"></script>
+	<!-- Twitter Card data -->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@ncasenmare">
+	<meta name="twitter:title" content="THE MAGNIFICENT 2D MATRIX">
+	<meta name="twitter:description" content="Behold the beast! Play with an interactive 2d matrix.">
+	<meta name="twitter:creator" content="@ncasenmare">
+	<meta name="twitter:image" content="http://ncase.me/matrix/img/thumbnail.png">
+
+	<!-- Open Graph data -->
+	<meta property="og:title" content="THE MAGNIFICENT 2D MATRIX">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="http://ncase.me/matrix">
+	<meta property="og:image" content="http://ncase.me/matrix/img/thumbnail.png">
+	<meta property="og:description" content="Behold the beast! Play with an interactive 2d matrix.">
+
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" href="css/matrix.css">
+</head>
+<body>
+
+	<div id="graphics">
+		<canvas id="bullets"></canvas>
+	</div>
+	<div id="math">
+		<div id="mtx_transform" class="matrix unselectable" style="width:180px">
+			<input value="1.0"/><input value="0.0"/><input value="0.0"/>
+			<input value="0.0"/><input value="1.0"/><input value="0.0"/>
+			
+			<div plain style="position: absolute; top: 120px;">0</div>
+			<div plain style="position: absolute; top: 120px; left:70px">0</div>
+			<div plain style="position: absolute; top: 120px; left:130px">1</div>
+
+			<div class="label">
+			the transformation matrix
+			<br>
+			<span>(adjust the numbers!)</span>
+			</div>
+
+		</div>
+		<div id="mtx_input"  class="matrix unselectable" style="width:60px">
+
+			<div plain style="position: absolute; top: 0px;">x</div>
+			<div plain style="position: absolute; top: 60px;">y</div>
+			<div plain style="position: absolute; top: 120px;">1</div>
+
+			<!--div plain>x</div>
+			<div plain>y</div>
+			<div plain>1</div-->
+
+			<div class="label">
+			a vector
+			<br>
+			<span>(hover over the dots)</span>
+			</div>
+
+		</div>
+		<div class="equals"></div>
+		<div id="mtx_expanded"  class="matrix unselectable" expanded>
+			<div><span class="left">1</span>*<span class="right">1</span></div>
+			<div plus><span class="left">1</span>*<span class="right">1</span></div>
+			<div plus><span class="left">1</span>*<span class="right">1</span></div>
+			
+			<div><span class="left">0</span>*<span class="right">0</span></div>
+			<div plus><span class="left">0</span>*<span class="right">0</span></div>
+			<div plus><span class="left">0</span>*<span class="right">0</span></div>
+
+			<div><span class="left">0</span>*<span class="right">x</span></div>
+			<div plus><span class="left">0</span>*<span class="right">y</span></div>
+			<div plus><span class="left">1</span>*<span class="right">1</span></div>
+
+			<div class="label">
+			how to multiply transformation matrix &amp; vector
+			<br>
+			<span>(hover over each cell)</span>
+			</div>
+
+		</div>
+		<div class="equals"></div>
+		<div id="mtx_output"  class="matrix" style="width:60px">
+			<div>x'</div>
+			<div>y'</div>
+			<div>1</div>
+			
+			<div class="label">
+			new vector
+			<br>
+			<span>(hover over the dots)</span>
+			</div>
+
+		</div>
+	</div>
+	<div id="curtains">
+		<div></div>
+		<div></div>
+	</div>
+
+	<div id="info">
+
+		<div class="info_title">
+			<img src="img/hand.jpg">
+			behold the beast! the magnificent 2d matrix!
+			<img src="img/hand2.jpg">
+		</div>
+		<p>
+			I used to believe mathematics was discovered, not invented.
+			Mathematics was the elegant language the universe was written in!
+			Yeeeeeah.
+			That changed when I first learnt about matrices,
+			coz sure, they're useful, but oh my <i>god</i> are they ugly like a carnival freakshow.
+			Who would wanna write a universe in this crap?!
+		</p>
+		<p>
+			Several years later, I was coding a videogame, when I bumped into matrices again.
+			These matrices were <i>transformation</i> matrices,
+			which affected the size, position, and rotation of my game's images.
+			Now, when I changed a matrix, I could <i>actually see</i> what the matrix did.
+			I could actually see what a matrix was!
+			It was intuitive.
+			Kind of charming.
+			A majestic creature, finally freed from its <i>n</i> x <i>m</i> rectangular cage.
+		</p>
+		<p>
+			So, I made this little matrix toy.
+			Hopefully this helps someone else figure out matrices,
+			or maybe everyone else except me already found matrices intuitive.
+			At the very least, I made this as a tribute to you, 2D matrix...
+		</p>
+		<p>
+			...you beautiful, beautiful bastard.
+		</p>
+
+		<div class="info_title" style="margin-top:50px">
+			<img src="img/hand.jpg">
+			this was an explorable explanation! golly!
+			<img src="img/hand2.jpg">
+		</div>
+
+		<p>
+			A bunch of peeps, including me, are making things that help others <i>learn by doing</i>.
+			We call 'em Explorable Explanations.
+			We're a loose &amp; informal "movement", and
+			if you'd like to play with more interactive edu-things,
+			check out
+			<a href="http://ExplorableExplanations.com">ExplorableExplanations.com!</a>
+		</p>
+		<p>
+			This was a side project, just to get something out while I'm working on my bigger project,
+			<i>I'd Like To Be A Machine</i>. Coming soon-ish.
+			It's an Explorable Explanation
+			on neurons &amp; anxiety - hopefully it helps people on a deeper level.
+			It also features a baby dinosaur.
+			If you'd like to keep up with my work,
+			<a href="https://twitter.com/ncasenmare">here's my Twitter.</a>
+			And if you'd like to support me making free/open-source ed-stuff,
+			you're <i>awesome</i>, and
+			<a href="http://patreon.com/ncase">here's my Patreon!</a>
+		</p>
+		<p>
+			Oh! Right, almost forgot to say, this thing is open source.
+			<a href="http://choosealicense.com/licenses/cc0/">Public domain,</a>
+			specifically. In fact, <i>all</i> my work is public domain,
+			so teachers can use it freely in their classrooms,
+			and others can dissect and build upon this.
+			You can fork this project's repo
+			<a href="https://github.com/ncase/matrix">on Github.</a>
+		</p>
+		<p>
+			Welp, that's all I got for today. Thanks for reading!
+		</p>
+
+		<!--div class="info_title" style="margin-top:50px">
+			<img src="img/hand.jpg">
+			the social media song and dance
+			<img src="img/hand2.jpg">
+		</div-->
+
+	</div>
+
+</body>
+</html>
+
+<script src="js/matrix.js"></script>

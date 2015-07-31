@@ -1,0 +1,202 @@
+@font-face {
+	font-family: 'Carnival';
+	src: url('carnival.ttf');
+}
+
+
+html, body{
+	margin:0;
+	overflow-x:hidden;
+}
+.unselectable{
+	-webkit-user-select: none;  /* Chrome all / Safari all */
+	-moz-user-select: none;     /* Firefox all */
+	-ms-user-select: none;      /* IE 10+ */
+
+	/* No support for these yet, use at own risk */
+	-o-user-select: none;
+	user-select: none;          
+}
+a{
+	color: #cc2727;
+}
+a:hover{
+	color: #ee4949;
+}
+
+/*** CURTAINS ***/
+#curtains{
+	position: absolute;
+	top:0;
+	width: 100%;
+	height: 0px;
+}
+#curtains > div{
+	position: absolute;
+	top:0;
+	width:125px;
+	height: 620px;
+}
+#curtains > div:nth-child(1){
+	left:0;
+	background: url(../img/curtain.png);
+}
+#curtains > div:nth-child(2){
+	right:0;
+	background: url(../img/curtain2.png);
+}
+
+/*** INFO ***/
+#info{
+	font-weight: 100;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 20px;
+	line-height: 1.5em;
+	width: 800px;
+	margin: 70px auto 70px auto;
+}
+#info > .info_title{
+	font-family: 'Carnival';
+	text-align: center;
+	font-size:50px;
+	width: 1000px;
+	position: relative;
+	left:-100px;
+	margin-bottom: 40px;
+}
+#info > .info_title > img{
+	position: relative;
+	top:6px;
+}
+#info > hr{
+	width: 850px;
+	border: none;
+	border-bottom: 3px solid #ccc;
+	margin: 80px 0; 
+	position: relative;
+	left:-25px;
+}
+
+/*** GRAPHICAL TOY ***/
+#graphics{
+	background: #ddd;
+	width:100%;
+	height:350px;
+}
+
+/*** MATRIX MATH ***/
+#math{
+	width: 870px;
+	height: 220px;
+	margin: 0px auto;
+	font-family: monospace;
+
+	/** HACK **/
+	-webkit-transform: scale(0.9);
+	-moz-transform: scale(0.9);
+	-ms-transform: scale(0.9);
+	transform: scale(0.9);
+
+}
+.matrix, .equals{
+	position: relative;
+	height:180px;
+	margin:10px;
+	margin-right:0;
+	float: left;
+}
+.matrix{
+	padding: 0 10px;
+}
+.matrix > input, .matrix > div{
+	float:left;
+	width:50px; height:50px;
+	background: #eee;
+	margin:5px;
+	position: relative;
+
+	font-size: 15px;
+	line-height: 50px;
+	text-align: center;
+
+	-webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    transition: all 0.2s;
+
+}
+.matrix > input{
+	border: 2px solid #bbb;
+	display: block;
+	width:50px; height:50px;
+	font-size: 15px;
+	font-family: monospace;
+
+	cursor: col-resize;
+}
+.matrix[expanded]{
+	width:300px;
+}
+.matrix[expanded] > div{
+	position: relative;
+	width:80px;
+	margin:5px 10px;
+	font-size: 12px;
+	cursor: pointer;
+}
+.matrix[expanded] > div[plus]:before{
+	content: '+';
+	position: absolute;
+	font-size: 20px;
+	text-align: center;
+	width:0px; height:0px;
+	left: -16px;
+	color: #000;
+}
+.matrix:before, .matrix:after{
+	content:'';
+	position:absolute;
+	width:20px; height:190px;
+	border: 5px solid #000;
+	top:-10px;
+}
+.matrix:before{
+	left:0;
+	border-right: none;
+}
+.matrix:after{
+	right:0;
+	border-left: none;
+}
+.equals{
+	width:60px;
+}
+.equals:after{
+	content: '';
+	width:40px;
+	height:20px;
+	position: absolute;
+	top:0; bottom:0; left:0; right:0;
+	margin:auto;
+	border: 5px solid #000;
+	border-left: none;
+	border-right: none;
+}
+.matrix > .label, .matrix[expanded] > .label{
+	font-size: 15px;
+	float: none;
+	background: none;
+    width: 100%;
+    margin: 0;
+    position: absolute;
+    top: 210px;
+    left: 0px;
+    line-height: 20px;
+    font-family: Helvetica, Arial, sans-serif;
+}
+.matrix > .label > span{
+	color: #888;
+}
+.matrix > div[plain]{
+	border: 0px solid #eee;
+}
