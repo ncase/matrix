@@ -74,6 +74,7 @@ for(var i=0;i<mtx_transforms.length;i++){
 var mtx_inputs = document.querySelectorAll("#mtx_input div");
 var mtx_outputs = document.querySelectorAll("#mtx_output div");
 var mtx_expanded_right = document.querySelectorAll("#mtx_expanded span.right");
+var mtx_expanded = document.querySelectorAll("#mtx_expanded")[0];
 function updateMatrixRight(){
 
 	for(var i=0;i<9;i++){
@@ -101,6 +102,8 @@ function updateMatrixRight(){
 		mtx_outputs[0].style.color = "";
 		mtx_outputs[1].style.color = "";
 
+		mtx_expanded.setAttribute("highlight","no");
+
 	}else{
 		var result = calculate(parseFloat(mtx_inputs[0].innerHTML),parseFloat(mtx_inputs[1].innerHTML));
 		mtx_outputs[0].innerHTML = result.x.toFixed(1);
@@ -120,6 +123,8 @@ function updateMatrixRight(){
 		mtx_outputs[1].style.background = "#DD3838";
 		mtx_outputs[0].style.color = "#FFF";
 		mtx_outputs[1].style.color = "#FFF";
+
+		mtx_expanded.setAttribute("highlight","yes");
 
 	}
 

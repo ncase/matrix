@@ -159,6 +159,15 @@ a:hover{
 	width:20px; height:190px;
 	border: 5px solid #000;
 	top:-10px;
+
+	-webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    transition: all 0.2s;
+
+}
+.matrix[highlight=yes]:before, .matrix[highlight=yes]:after{
+	border-color: #DD3838;
 }
 .matrix:before{
 	left:0;

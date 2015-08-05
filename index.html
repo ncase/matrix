@@ -29,6 +29,8 @@
 
 	<!-- CSS -->
 	<link rel="stylesheet" type="text/css" href="css/matrix.css">
+	<link rel="stylesheet" type="text/css" href="css/share.css">
+
 </head>
 <body>
 
@@ -182,11 +184,16 @@
 			Welp, that's all I got for today. Thanks for reading!
 		</p>
 
-		<!--div class="info_title" style="margin-top:50px">
-			<img src="img/hand.jpg">
-			the social media song and dance
-			<img src="img/hand2.jpg">
-		</div-->
+		<!-- SOCIAL -->
+		<script src="js/popup.js"></script>
+		<div id="share">
+			<div id="share_facebook" onclick="return socialShare.call(this,event,'facebook');"></div>
+			<div id="share_twitter" onclick="return socialShare.call(this,event,'twitter');"></div>
+			<div id="share_plus" onclick="return socialShare.call(this,event,'plus');"></div>
+			<div id="share_tumblr" onclick="return socialShare.call(this,event,'tumblr');"></div>
+			<div id="share_reddit" onclick="return socialShare.call(this,event,'reddit');"></div>
+			<div id="share_stumbleupon" onclick="return socialShare.call(this,event,'stumbleupon');"></div>
+		</div>
 
 	</div>
 
