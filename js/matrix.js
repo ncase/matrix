@@ -3,7 +3,7 @@ function $(selector){
 }
 
 var transform = {};
-var mtx_expanded_left = document.querySelectorAll("#mtx_expanded span.left");
+var mtx_expanded_left = $("#mtx_expanded span.left");
 function updateMatrixLeft(){
 
 	for(var i=0;i<6;i++){
@@ -45,10 +45,19 @@ function makeScrubbable(input){
 	}
 }
 window.onmousemove = function(e){
-
 	// Mouse
 	Mouse.x = e.clientX;
 	Mouse.y = e.clientY;
+
+	// If browser allows it, try to find x/y relative to canvas rather than page
+	if(e.offsetX != undefined){
+		Mouse.x = e.offsetX;
+		Mouse.y = e.offsetY;
+	}
+	else if(e.layerX != undefined && e.originalTarget != undefined){
+		Mouse.x = e.layerX-e.originalTarget.offsetLeft;
+		Mouse.y = e.layerY-e.originalTarget.offsetTop;
+	}
 
 	// Scrubbing
 	if(!scrubInput) return;
@@ -64,17 +73,17 @@ window.onmouseup = function(){
 	scrubInput = null;
 }
 
-var mtx_transforms = document.querySelectorAll("#mtx_transform input");
+var mtx_transforms = $("#mtx_transform input");
 for(var i=0;i<mtx_transforms.length;i++){
 	var input = mtx_transforms[i];
 	input.onchange = updateMatrixLeft;
 	makeScrubbable(input);
 }
 
-var mtx_inputs = document.querySelectorAll("#mtx_input div");
-var mtx_outputs = document.querySelectorAll("#mtx_output div");
-var mtx_expanded_right = document.querySelectorAll("#mtx_expanded span.right");
-var mtx_expanded = document.querySelectorAll("#mtx_expanded")[0];
+var mtx_inputs = $("#mtx_input div");
+var mtx_outputs = $("#mtx_output div");
+var mtx_expanded_right = $("#mtx_expanded span.right");
+var mtx_expanded = $("#mtx_expanded")[0];
 function updateMatrixRight(){
 
 	for(var i=0;i<9;i++){
